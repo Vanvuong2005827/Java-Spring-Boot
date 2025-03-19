@@ -1,13 +1,13 @@
-package org.example.firstapp;
+package org.example.btvnbuoi2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FirstAppApplicationTests {
+class BtvnBuoi2ApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
