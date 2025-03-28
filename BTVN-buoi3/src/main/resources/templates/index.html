@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Managing</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      a {
+        text-decoration: none;
+        color: blue;
+      }
+      a:hover {
+        color: red;
+      }
+      h2 {
+        text-align: center;
+      }
+      p {
+        text-align: center;
+      }
+      a:first-child {
+        margin-right: 10px;
+      }
+      a:last-child {
+        margin-left: 10px;
+      }
+      a:first-child:hover,
+      a:last-child:hover {
+        color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div th:switch="${students}">
+      <h2 th:case="null">No students yet!</h2>
+      <div th:case="*">
+        <h2>Students</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="student : ${students}">
+              <td th:text="${student.name}"></td>
+              <td th:text="${student.email}"></td>
+              <td th:text="${student.phone}"></td>
+              <td th:text="${student.address}"></td>
+              <td>
+                <a th:href="@{/students/edit/{id}(id = ${student.id})}">Edit</a>
+              </td>
+              <td>
+                <a th:href="@{/students/delete/{id}(id = ${student.id})}"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <form
+        action="#"
+        th:action="@{/student/create}"
+        th:object="${student}"
+        method="post"
+      >
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Name" />
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label for="email">Email</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Email" />
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <label for="phone">Phone</label>
+        <input type="text" th:field="*{phone}" id="phone" placeholder="Phone" />
+        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        <label for="address">Address</label>
+        <textarea
+          th:field="*{address}"
+          id="address"
+          rows="4"
+          cols="30"
+          placeholder="Address"
+        ></textarea>
+        <input type="submit" value="Add User" />
+      </form>
+    </div>
+  </body>
+</html>
